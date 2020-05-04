@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build --rm -t restic-backup .
+sudo docker build --rm -t restic-backup .

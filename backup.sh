@@ -11,6 +11,11 @@ logLast() {
   echo "$1" >> ${lastLogfile}
 }
 
+if [ $(ps | grep restic | grep -v grep | wc -l) -ge 1 ]; then
+    echo "Previous Backup still running -- aborting at $(date +"%Y-%m-%d %H:%M:%S")"
+    exit
+fi
+
 start=`date +%s`
 rm -f ${lastLogfile} ${lastMailLogfile}
 echo "Starting Backup at $(date +"%Y-%m-%d %H:%M:%S")"
