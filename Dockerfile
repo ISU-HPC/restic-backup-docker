@@ -6,8 +6,8 @@ RUN unzip rclone-current-linux-amd64.zip && mv rclone-*-linux-amd64/rclone /bin/
 
 FROM restic/restic:0.9.6
 
-# install mailx
-RUN apk add --update --no-cache heirloom-mailx fuse
+# install 
+RUN apk add --update --no-cache heirloom-mailx fuse openssh-client
 
 COPY --from=rclone /bin/rclone /bin/rclone
 
@@ -25,7 +25,9 @@ ENV RESTIC_JOB_ARGS=""
 ENV MAILX_ARGS=""
 
 # /data is the dir where you have to put the data to be backed up
+# /root/.cache is restics cache dir 
 VOLUME /data
+VOLUME /root/.cache
 
 COPY backup.sh /bin/backup
 COPY entry.sh /entry.sh

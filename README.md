@@ -6,6 +6,7 @@ This container runs restic backups in regular intervals.
 * Easy setup and maintanance
 * Support for different targets (tested with: Local, NFS, SFTP, AWS)
 * Support `restic mount` inside the container to browse the backup files
+* Aborts if previous backup is still running
 
 **Container**: [lobaro/restic-backup-docker](https://hub.docker.com/r/lobaro/restic-backup-docker/)
 
@@ -16,7 +17,7 @@ docker pull lobaro/restic-backup-docker:1.2-0.9.4
 
 Latest (experimental)
 ```
-docker pull lobaro/restic-backup-docker:latest
+docker pull isu-hpc/restic-backup-docker:latest
 ```
 
 Please don't hesitate to report any issue you find. **Thanks.**
@@ -82,6 +83,7 @@ The container is setup by setting [environment variables](https://docs.docker.co
 ## Volumes
 
 * `/data` - This is the data that gets backed up. Just [mount](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) it to wherever you want.
+* `/root/.cache` - This is restics cache directory and can grow to be substanstial. Not necessary to mount, but may exceed expections for a / fs if you dont.
 
 ## Set the hostname
 
